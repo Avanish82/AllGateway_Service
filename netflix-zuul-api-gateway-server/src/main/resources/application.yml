@@ -1,0 +1,51 @@
+#spring:
+#  application:
+#    name: NETFLIX-ZULL-GATEWAY-SERVICE
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: order-service
+#          uri: lb://ORDER-SERVICE
+#          predicates:
+#            - Path=/order/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: order-service
+#                fallbackuri: forward:/orderFallBack
+#        - id: payment-service
+#          uri: lb://PAYMENT-SERVICE
+#          predicates:
+#            - Path=/payment/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: payment-service
+#                fallbackuri: forward:/paymentFallback
+#        - id: usermanagement
+#          uri: lb://User-Management
+#          predicates:
+#            - Path=/usermanagement/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: user-management
+#                fallbackuri: forward:/usermanagementFallback        
+#                
+#
+#server:
+#  port: 9889
+#  
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: hystrix.stream
+#
+#hystrix:
+#  command:
+#    fallbackcmd:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000  
